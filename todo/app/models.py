@@ -18,7 +18,7 @@ class Todo(models.Model):
     Title = models.CharField(max_length=100)
     Description = models.TextField(max_length=1000)
     Due_Date = models.DateField(blank=True, null=True)
-    Tag = models.ManyToManyField(Tag, blank=True, null=True)
+    Tag = models.ManyToManyField(Tag, blank=True)
     Status = models.CharField(max_length=20,choices=CHOICES, default='open')
 
     
