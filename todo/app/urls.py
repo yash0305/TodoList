@@ -12,10 +12,11 @@
 
 from django.urls import path
 
-from .views import TagView, taskList, taskDetail, taskCreate, taskDelete, taskUpdate
+from .views import TagView, taskList, taskDetail, taskCreate, taskDelete, taskUpdate, tagCreate
 
 urlpatterns = [
     path('tag', TagView, name='tag'),
+    path('tag-create', tagCreate, name='tag-create'),
     path('todo-list/', taskList, name='todo-list'),
     path('todo-detail/<str:pk>/', taskDetail, name="todo-detail"),
 	path('todo-create/', taskCreate, name="todo-create"),

@@ -56,3 +56,10 @@ def taskDelete(request,pk):
     task.delete()
     return Response("Item succesfully deleted")
 
+@api_view(['POST'])
+def tagCreate(request):
+    data = request.data
+    new = TagSerializers(data=data)
+    if new.is_valid():
+        new.save()
+    return Response(new.data)
