@@ -16,24 +16,30 @@ def TagView(request):
     return Response(s.data)
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def taskList(request):
     tasks = Todo.objects.all()
     s = TodoSerializers(tasks, many=True)
     return Response(s.data)
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def taskDetail(request,pk):
     tasks = Todo.objects.get(id = pk)
     s = TodoSerializers(tasks, many=False)
     return Response(s.data)
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def taskCreate(request):
     data = request.data
     t = data["Timestamp"]
     timeStamp = datetime.strptime(t[:10], "%Y-%m-%d")
     dueDate = datetime.strptime(data["Due_Date"], "%Y-%m-%d")
-    if dueDate > timeStamp:
+    if dueDate >= timeStamp:
         new = TodoSerializers(data=data)
     else: 
         return Response("Due Date field value cannot be before Timestamp created")
@@ -43,6 +49,8 @@ def taskCreate(request):
     return Response(new.data)
 
 @api_view(['PUT'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def taskUpdate(request,pk):
     task = Todo.objects.get(id = pk)
     s = TodoSerializers(instance=task,data=request.data)
@@ -51,12 +59,16 @@ def taskUpdate(request,pk):
     return Response(s.data)
 
 @api_view(['DELETE'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def taskDelete(request,pk):
     task = Todo.objects.get(id = pk)
     task.delete()
     return Response("Item succesfully deleted")
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def tagCreate(request):
     data = request.data
     new = TagSerializers(data=data)
