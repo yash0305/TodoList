@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
+import datetime
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -21,6 +22,16 @@ class Todo(models.Model):
     Tag = models.ManyToManyField(Tag, blank=True)
     Status = models.CharField(max_length=20,choices=CHOICES, default='open')
 
+    def isDueDateNotPast(self):
+        timeStamp = datetime.date.today()
+        if self.Due_Date < timeStamp:
+            return True
+        else:
+            return False
+
+    def clean(self):
+        if self.isDueDateNotPast():
+            raise ValidationError('The date cannot be in the pasts')
     
     def __str__(self):
         return self.Title
