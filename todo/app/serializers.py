@@ -19,4 +19,4 @@ class TodoSerializers(serializers.ModelSerializer):
             check=models.Q(Date_Now=Now()),
             name='created_at_cannot_be_past_date'
         )
-    ]
+    ]         

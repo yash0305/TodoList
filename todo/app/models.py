@@ -34,4 +34,4 @@ class Todo(models.Model):
             raise ValidationError('The date cannot be in the pasts')
     
     def __str__(self):
-        return self.Title
+        return self.Title         
