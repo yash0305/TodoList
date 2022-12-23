@@ -31,7 +31,7 @@ class Todo(models.Model):
 
     def clean(self):
         if self.isDueDateNotPast():
-            raise ValidationError(Only current date and future dates are allowed')
+            raise ValidationError('Only current date and future dates are allowed')
     
     def __str__(self):
         return self.Title         

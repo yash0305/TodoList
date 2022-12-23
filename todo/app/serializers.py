@@ -10,13 +10,8 @@ class TagSerializers(serializers.ModelSerializer):
         fields = '__all__'
 
 class TodoSerializers(serializers.ModelSerializer):
-    Tag = TagSerializers(many=True)
+    # Tag = TagSerializers(many=True)
     class Meta:
         model = Todo
         fields = '__all__'
-        constraints = [
-        models.CheckConstraint(
-            check=models.Q(Date_Now=Now()),
-            name='created_at_cannot_be_past_date'
-        )
-    ]         
+       

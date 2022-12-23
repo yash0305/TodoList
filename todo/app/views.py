@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from datetime import datetime
+from datetime import date
 
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
@@ -36,9 +37,15 @@ def taskDetail(request,pk):
 @permission_classes([IsAuthenticated])
 def taskCreate(request):
     data = request.data
-    t = data["Timestamp"]
-    timeStamp = datetime.strptime(t[:10], "%Y-%m-%d")
+    # t = data["Timestamp"]
+    today = date.today()
+    print(request.data)
+    todaysDate = today.strftime("%Y-%m-%d")
+    timeStamp = datetime.strptime(todaysDate, '%Y-%m-%d')
     dueDate = datetime.strptime(data["Due_Date"], "%Y-%m-%d")
+    print(type(timeStamp))
+    print(type(dueDate))
+
     if dueDate >= timeStamp:
         new = TodoSerializers(data=data)
     else: 
