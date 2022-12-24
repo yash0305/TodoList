@@ -11,6 +11,7 @@ class TagSerializers(serializers.ModelSerializer):
 
 class TodoSerializers(serializers.ModelSerializer):
     # Tag = TagSerializers(many=True)
+    Tag = serializers.StringRelatedField(many=True)
     class Meta:
         model = Todo
         fields = '__all__'
